@@ -19,7 +19,16 @@ class FlipkartParser extends Parser {
 }
 
 class JabongParser extends Parser {
-  override def parseProduct(document: Document, pageUrl: String): Product = ???
+  override def parseProduct(document: Document, pageUrl: String): Product = {
+    val title = document.select("span[itemprop=name]").text()
+    val description = document.select("div[id=productInfo").select("p").text()
+      //select("p[itemprop=description[p").text()
+    Product(title, description, pageUrl)
+  }
 
-  override def parsePrice(document: Document): Price = ???
+  override def parsePrice(document: Document): Price = {
+    val listPrice = document.select("div[id=product_price]").text().toDouble
+    val salePrice = if(! document.select("div[id=product_special_price]").isEmpty) listPrice else document.select("div[id=product_special_price]").text().toDouble
+    Price(listPrice, salePrice)
+  }
 }
