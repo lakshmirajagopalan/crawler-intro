@@ -19,7 +19,7 @@ object CrawlDriver extends App {
   config.setMaxPagesToFetch(1000)
   config.setProxyHost("proxy.production.indix.tv")
   config.setProxyPort(8080)
-  config.setResumableCrawling(false) // Enable as required
+  config.setResumableCrawling(true) // Enable as required
   // TODO: Add proxy support for your crawler to not get blocked.
   /*
     How Proxy works
